@@ -1,0 +1,70 @@
+@page "/excusas"
+
+<PageTitle>Generador de Excusas</PageTitle>
+
+<h1>🤖 Generador de Excusas</h1>
+<p>¿El código no compila y viene tu jefe? Obtén una excusa instantánea:</p>
+
+<div style="margin: 20px 0; padding: 20px; background: #282c34; color: #61dafb; border-radius: 8px; font-size: 1.2rem;">
+    <em>"@excusaActual"</em>
+</div>
+
+<button class="btn btn-primary" @onclick="GenerarExcusa">Generar nueva excusa</button>
+
+<hr style="margin: 30px 0;" />
+
+<h3>Agrega tu propia excusa</h3>
+<div style="display: flex; gap: 10px; margin-top: 15px;">
+    <input type="text" class="form-control" @bind="nuevaExcusa" placeholder="Ej: Es culpa de la API externa..." style="width: 300px;" />
+    <button class="btn btn-success" @onclick="AgregarExcusa">Guardar en la lista</button>
+</div>
+
+@if (mostrarMensajeExito)
+{
+    <p style="color: green; margin-top: 10px; font-weight: bold;">¡Excusa agregada al repertorio!</p>
+}
+
+<hr style="margin: 30px 0;" />
+
+<h3>Inventario de Excusas (@excusas.Count)</h3>
+<ul style="max-width: 500px; margin-top: 15px; background: #f8f9fa; padding: 20px; border-radius: 8px; list-style-type: square;">
+    @foreach (var excusa in excusas)
+    {
+        <li style="margin-bottom: 8px; color: #333;">@excusa</li>
+    }
+</ul>
+
+@code {
+    private string excusaActual = "Haz clic en el botón para tu primera excusa...";
+    private string nuevaExcusa = "";
+    private bool mostrarMensajeExito = false;
+
+    private List<string> excusas = new List<string>
+    {
+        "En mi máquina sí funciona.",
+        "Debe ser un problema de la caché del navegador.",
+        "Ese bug ya estaba ahí cuando heredé el proyecto.",
+        "Seguro se cayó la base de datos de pruebas.",
+        "Olvidé reiniciar el servidor local.",
+        "El framework se actualizó en la noche y rompió todo.",
+        "Es una 'feature' oculta, no un bug."
+    };
+
+    private void GenerarExcusa()
+    {
+        var random = new Random();
+        int indice = random.Next(excusas.Count);
+        excusaActual = excusas[indice];
+        mostrarMensajeExito = false; 
+    }
+
+    private void AgregarExcusa()
+    {
+        if (!string.IsNullOrWhiteSpace(nuevaExcusa))
+        {
+            excusas.Add(nuevaExcusa);
+            nuevaExcusa = ""; 
+            mostrarMensajeExito = true;
+        }
+    }
+}
