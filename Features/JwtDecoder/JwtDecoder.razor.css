@@ -1,0 +1,22 @@
+/* Estos estilos SOLO afectarán al HTML dentro de JwtDecoder.razor */
+textarea {
+    resize: none;
+    border: 2px dashed #6c757d;
+    background-color: #f8f9fa;
+    transition: border-color 0.3s ease-in-out;
+}
+
+textarea:focus {
+    border-color: #0d6efd;
+    background-color: #ffffff;
+    outline: none;
+    box-shadow: none;
+}
+
+pre {
+    /* Evita que el JSON se salga de la tarjeta y agrega scroll si es necesario */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+}

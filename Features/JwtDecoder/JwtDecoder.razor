@@ -1,0 +1,46 @@
+@page "/"
+@using decodificarJwt.Core.Constants
+
+<PageTitle>Decodificador de JWT Local</PageTitle>
+
+<div class="container-fluid mt-3">
+    <h2 class="mb-1">🔓 JWT Decoder</h2>
+    <p class="text-muted mb-4">Decodifica tus JSON Web Tokens directamente en tu navegador con WebAssembly.</p>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-dark text-white fw-bold">
+                    Encoded Token (Pegar aquí)
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <textarea class="form-control font-monospace flex-grow-1 p-3" 
+                              rows="14" 
+                              @bind="RawToken" 
+                              @bind:event="oninput"
+                              placeholder="@AppConstants.Jwt.PlaceholderText"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card border-danger mb-3 shadow-sm">
+                <div class="card-header bg-danger text-white fw-bold">
+                    HEADER: Algorithm & Token Type
+                </div>
+                <div class="card-body bg-light">
+                    <pre class="m-0 text-danger fw-bold font-monospace">@HeaderDecoded</pre>
+                </div>
+            </div>
+
+            <div class="card border-primary mb-3 shadow-sm">
+                <div class="card-header bg-primary text-white fw-bold">
+                    PAYLOAD: Data / Claims
+                </div>
+                <div class="card-body bg-light">
+                    <pre class="m-0 text-primary fw-bold font-monospace">@PayloadDecoded</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
